@@ -375,17 +375,12 @@ export function createLayout(
 		offsetLeft = eventData.pageX ? eventData.pageX : linkData.offset.left;
 	const clientTop = eventData.clientY ? eventData.clientY : offsetTop;
 
-	// X Flip
-	if ( offsetLeft > ( windowData.width / 2 ) ) {
-		offsetLeft += ( !eventData.pageX ) ? linkData.width : 0;
-		offsetLeft -= !isPreviewTall ?
-			portraitPopupWidth :
-			landscapePopupWidth;
-		flippedX = true;
-	}
+	let correction = ( $window.width() - $( 'body' ).width() ) / 2;
 
-	if ( eventData.pageX ) {
-		offsetLeft += ( flippedX ) ? 20 : -20;
+	// X Flip
+	if ( offsetLeft > ( $( window ).width() / 2 ) ) {
+		flippedX = true;
+		correction += portraitPopupWidth - linkData.width;
 	}
 
 	// Y Flip
@@ -414,7 +409,7 @@ export function createLayout(
 	return {
 		offset: {
 			top: offsetTop,
-			left: offsetLeft
+			left: linkData.offset.left - correction
 		},
 		flippedX,
 		flippedY
