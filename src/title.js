@@ -74,6 +74,10 @@ export function isValid( title, contentNamespaces ) {
  * @return {mw.Title|null}
  */
 export function fromElement( el, config ) {
+	if ( $( el ).children( '.tw-tile' ).length !== 0 ) {
+		return null;
+	}
+
 	return isValid(
 		getTitle( el.href, config ),
 		config.get( 'wgContentNamespaces' )

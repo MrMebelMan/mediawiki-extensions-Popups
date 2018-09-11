@@ -12,7 +12,6 @@ import { renderPagePreview } from './templates/pagePreview/pagePreview';
 const mw = window.mediaWiki,
 	$ = jQuery,
 	$window = $( window ),
-	landscapePopupWidth = 450,
 	portraitPopupWidth = 320,
 	pokeySize = 8; // Height of the pokey.;
 
@@ -371,8 +370,9 @@ export function createLayout(
 				false
 			) + windowData.scrollTop + pokeySize :
 			// Position according to link position or size
-			linkData.offset.top + linkData.height + pokeySize,
-		offsetLeft = eventData.pageX ? eventData.pageX : linkData.offset.left;
+			linkData.offset.top + linkData.height + pokeySize;
+
+	const offsetLeft = eventData.pageX ? eventData.pageX : linkData.offset.left;
 	const clientTop = eventData.clientY ? eventData.clientY : offsetTop;
 
 	let correction = ( $window.width() - $( 'body' ).width() ) / 2;
